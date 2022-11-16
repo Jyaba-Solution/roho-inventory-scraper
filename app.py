@@ -7,6 +7,8 @@ from config import cookies, headers, private_key, total_records, total_value, pr
 def crawl_product_id():
     start_index = 1
     total_size = total_value
+    product_list = []
+
     data = {
     'isPermaOrEmbed': 'true',
     'printFooterClassName': '',
@@ -102,7 +104,6 @@ def crawl_product_id():
         except:
             print(response.text)
             break
-        product_list = []
         print(len(response_files))
         print("Running from {} to {}".format(start_index, total_value))
 
