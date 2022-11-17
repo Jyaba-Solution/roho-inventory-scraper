@@ -9,7 +9,7 @@ cookies = {
     'JSESSIONID': '33F384C9E152EA99EB4B658F151D61DA',
 }
 private_key = 'z34R7s1N5Y6evpFgjePs1b10Ut3JAQ0uxZZrN8BZup9h9ZHrtXAsXsQu8YqjfBBam9gvJOqUYJpAd9BBZDQMfnpnkgnRf9wk9R0f'
-total_records = 7726
+total_records = 77260
 start_index = 1
 total_value = 300
 total_size = 300

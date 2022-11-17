@@ -100,20 +100,26 @@ def crawl_product_id():
         response = requests.post('https://creatorapp.zohopublic.com/francisco.roda/roho-inventory/report-embed-json/CATALOGO', cookies=cookies, headers=headers, data=new_data)
 
         try:
-            response_files = response.json()['MODEL']['DATAJSONARRAY'][0]['data']
+            response_files = response.json()['MODEL']['DATAJSONARRAY']
+            data_list = []
+            for response_file in response_files:
+                data_list = data_list + response_file['data']
         except:
             print(response.text)
             break
         print(len(response_files))
+        print(len(data_list))
+        if len(response_files) == 0 and len(data_list) == 0:
+            break
         print("Running from {} to {}".format(start_index, total_value))
 
         # write all Ids
-        for product in response_files:
+        for product in data_list:
             product_list.append(product['ID'])
         start_index += total_value
         total_size = start_index - 1
         
-    with open(product_list_file, 'w') as f:
+    with open(product_list_file, 'a') as f:
         f.write(','.join(product_list) + ',')
     
 
@@ -123,6 +129,7 @@ def crawl_product():
     product_ids = open(product_list_file).read().split(',') 
     product_ids = list(set(product_ids))
     id_list = [id for id in product_ids if id]
+    print("Total products: {}".format(len(id_list)))
     for id in id_list:
         response = requests.get(f'https://creatorapp.zohopublic.com/francisco.roda/roho-inventory/summary-embed/CATALOGO/{id}', params=params, cookies=cookies, headers=headers)
         data = response.json()['MODEL']['DATAJSONARRAY'][0]
